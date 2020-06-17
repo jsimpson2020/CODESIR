@@ -58,9 +58,9 @@ sum = 0
 
 #mitigation factor is q
 #First_change is the day that restrictions are lifted
-first_change = float(input("Enter day quarantine lifted (integer between 1 and 100): ")) / dt
+first_change = int(input("Enter day quarantine lifted (integer between 1 and 100): ")) / dt
 #spacing is the spacing between trial runs in days
-spacing = float(input("Enter comparison spacing (integer between 1 and 10): "))
+spacing = int(input("Enter comparison spacing (integer between 1 and 10): "))
 #q1, q2, and r are varying mitigation factors
 #q1 is the initial quarantine level (between 0 and 1)
 #q2 is the return to quarantine levle (between 0 and 1)
