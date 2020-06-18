@@ -64,50 +64,35 @@ def quarantine_comparison(spacing, q1, r):
     #q2 is the return to quarantine levle (between 0 and 1)
     #r is the q value when quarantine is lifted (between 0 and 1)
 
-    for n in range(6):
-        qlist = []
-    
-        for i in range(niter-1):
-            if i <= (spacing * (n+1) / dt): 
-                q = q1
-            else:
-                q = r
-            qlist.append(q)
-
-        for j in range(niter-1):
-            dSdt=-(qlist[j]*beta/N)*S[j]*I[j]
-            dIdt=(qlist[j]*beta/N)*S[j]*I[j]-gamma*I[j]
-            sum = sum + I[j]*dt
-            S[j+1] = S[j] + dt*dSdt 
-            I[j+1] = I[j] + dt*dIdt
-
-        # plotting
-        plt.plot(t, I)
-        
-    S[0] = ps*N
-    I[0] = pi*N
-    sum = 0
-
-    for k in range(niter-1):
-       dSdt=-(beta/N)*S[k]*I[k]
-       dIdt=(beta/N)*S[k]*I[k]-gamma*I[k]
-       sum = sum + I[k]*dt
-       S[k+1] = S[k] + dt*dSdt 
-       I[k+1] = I[k] + dt*dIdt
-    plt.plot(t,I)
-    
-            
-    S[0] = ps*N
-    I[0] = pi*N
-    sum = 0
-
-    for l in range(niter-1):
-       dSdt=-(q1*beta/N)*S[l]*I[l]
-       dIdt=(q1*beta/N)*S[l]*I[l]-gamma*I[l]
-       sum = sum + I[l]*dt
-       S[l+1] = S[l] + dt*dSdt 
-       I[l+1] = I[l] + dt*dIdt
-    plt.plot(t,I)
+    for n in range(8):
+        if n <= 5:
+            for j in range(niter-1):
+                if j <= (spacing * (n+1) / dt):
+                    q = q1
+                else:
+                    q = r
+                dSdt=-(q*beta/N)*S[j]*I[j]
+                dIdt=(q*beta/N)*S[j]*I[j]-gamma*I[j]
+                sum = sum + I[j]*dt
+                S[j+1] = S[j] + dt*dSdt 
+                I[j+1] = I[j] + dt*dIdt
+            plt.plot(t, I)
+        elif n == 6:
+            for k in range(niter-1):
+                dSdt=-(beta/N)*S[k]*I[k]
+                dIdt=(beta/N)*S[k]*I[k]-gamma*I[k]
+                sum = sum + I[k]*dt
+                S[k+1] = S[k] + dt*dSdt 
+                I[k+1] = I[k] + dt*dIdt
+            plt.plot(t,I)
+        else:
+            for l in range(niter-1):
+                dSdt=-(q1*beta/N)*S[l]*I[l]
+                dIdt=(q1*beta/N)*S[l]*I[l]-gamma*I[l]
+                sum = sum + I[l]*dt
+                S[l+1] = S[l] + dt*dSdt 
+                I[l+1] = I[l] + dt*dIdt
+            plt.plot(t,I)
     
     plt.legend([str(int(spacing)) + ' days of q = ' + str(float(q1)), 
                 str(int(2 * spacing)) + ' days of q = ' + str(float(q1)), 
