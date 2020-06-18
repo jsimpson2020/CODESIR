@@ -71,27 +71,23 @@ r = float(input("Enter relaxation q value (bigger than quarantine values up to 1
 
 for n in range(5):
     second_change = first_change + (spacing * n / dt)
-    qlist = []
-    
-    for i in range(niter-1):
-        if i <= first_change: 
+
+    for j in range(niter-1):
+        if j <= first_change:
             q = q1
-        elif i <= second_change and i > first_change:
+        elif j <= second_change and j > first_change:
             q = 1
         else:
             q = q2
-        qlist.append(q)
-
-    for j in range(niter-1):
-        dSdt=-(qlist[j]*beta/N)*S[j]*I[j]
-        dIdt=(qlist[j]*beta/N)*S[j]*I[j]-gamma*I[j]
+        dSdt=-(q*beta/N)*S[j]*I[j]
+        dIdt=(q*beta/N)*S[j]*I[j]-gamma*I[j]
         sum = sum + I[j]*dt
         S[j+1] = S[j] + dt*dSdt 
         I[j+1] = I[j] + dt*dIdt
 
     # plotting
     plt.plot(t, I)
-    plt.legend(['no explicit quarantine lift', 
+    plt.legend(['no quarantine lift', 
                 str(int(spacing)) + ' days relaxed', 
                 str(int(2 * spacing)) + ' days relaxed', 
                 str(int(3 * spacing)) + ' days relaxed', 
