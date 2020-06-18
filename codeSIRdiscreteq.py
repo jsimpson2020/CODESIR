@@ -58,26 +58,21 @@ sum = 0
 
 
 #mitigation factor
-first_change = float(input("Enter day quarantine lifted: ")) / dt
-second_change = float(input("Enter day quarantine reinstated: ")) / dt
+first_change = int(input("Enter day quarantine lifted: ")) / dt
+second_change = int(input("Enter day quarantine reinstated: ")) / dt
 q1 = float(input("Enter first quarantine value: "))
 q2 = float(input("Enter second quarantine value: "))
-qlist = []
 
-for i in range(niter-1):
-    #multiply i value by 100 to get the day value
-    #Add conditionals if necessary
-    if i <= first_change: 
+
+for j in range(niter-1):
+    if j <= first_change:
         q = q1
-    elif i <= second_change and i > first_change:
+    elif j <= second_change and j > first_change:
         q = 1
     else:
         q = q2
-    qlist.append(q)
-
-for j in range(niter-1):
-    dSdt=-(qlist[j]*beta/N)*S[j]*I[j]
-    dIdt=(qlist[j]*beta/N)*S[j]*I[j]-gamma*I[j]
+    dSdt=-(q*beta/N)*S[j]*I[j]
+    dIdt=(q*beta/N)*S[j]*I[j]-gamma*I[j]
     sum = sum + I[j]*dt
     S[j+1] = S[j] + dt*dSdt 
     I[j+1] = I[j] + dt*dIdt
