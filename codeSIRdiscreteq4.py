@@ -106,7 +106,7 @@ def quarantine_comparison(day_lifted, spacing, q1, r, q2):
                 str(int(4 * spacing)) + ' days relaxed',
                 'no quarantine'])
     plt.title(' SIR model lifting restrictions after ' + str(int(day_lifted))
-              + ' days of quaratine \n and replacing restrictions on ' + str(int(spacing))
+              + ' days of quarantine \n and replacing restrictions on ' + str(int(spacing))
               + ' day intervals (I only) \n q1 = ' + str(float(q1)) + ', r = ' + str(float(r))
               + ', q2 = ' + str(float(q2)) + ', \u03B2 = ' + str(beta) + ', \u03B3 = ' + str(gamma))
     plt.xlabel('days elapsed since 1 percent of the population became infected')
