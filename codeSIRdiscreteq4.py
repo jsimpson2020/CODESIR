@@ -65,40 +65,31 @@ def quarantine_comparison(day_lifted, spacing, q1, r, q2):
     #q2 is the return to quarantine levle (between 0 and 1)
     #r is the q value when quarantine is lifted (between 0 and 1)
 
-    for n in range(5):
-        second_change = first_change + (spacing * n / dt)
-        qlist = []
-    
-        for i in range(niter-1):
-            if i <= first_change: 
-                q = q1
-            elif i <= second_change and i > first_change:
-                q = r
-            else:
-                q = q2
-            qlist.append(q)
-
-        for j in range(niter-1):
-            dSdt=-(qlist[j]*beta/N)*S[j]*I[j]
-            dIdt=(qlist[j]*beta/N)*S[j]*I[j]-gamma*I[j]
-            sum = sum + I[j]*dt
-            S[j+1] = S[j] + dt*dSdt 
-            I[j+1] = I[j] + dt*dIdt
-
-        # plotting
-        plt.plot(t, I)
+    for n in range(6):
+        if n <= 4:
+            second_change = first_change + (spacing * n / dt)
         
-    S[0] = ps*N
-    I[0] = pi*N
-    sum = 0
-
-    for k in range(niter-1):
-       dSdt=-(beta/N)*S[k]*I[k]
-       dIdt=(beta/N)*S[k]*I[k]-gamma*I[k]
-       sum = sum + I[k]*dt
-       S[k+1] = S[k] + dt*dSdt 
-       I[k+1] = I[k] + dt*dIdt
-    plt.plot(t,I)
+            for j in range(niter-1):
+                if j <= first_change:
+                    q = q1
+                elif j <= second_change and j > first_change:
+                    q = r
+                else:
+                    q = q2
+                dSdt=-(q*beta/N)*S[j]*I[j]
+                dIdt=(q*beta/N)*S[j]*I[j]-gamma*I[j]
+                sum = sum + I[j]*dt
+                S[j+1] = S[j] + dt*dSdt 
+                I[j+1] = I[j] + dt*dIdt
+            plt.plot(t,I)
+        else:
+            for k in range(niter-1):
+                dSdt=-(beta/N)*S[k]*I[k]
+                dIdt=(beta/N)*S[k]*I[k]-gamma*I[k]
+                sum = sum + I[k]*dt
+                S[k+1] = S[k] + dt*dSdt 
+                I[k+1] = I[k] + dt*dIdt
+            plt.plot(t,I)
     plt.legend(['no quarantine lift', 
                 str(int(spacing)) + ' days relaxed', 
                 str(int(2 * spacing)) + ' days relaxed', 
@@ -115,4 +106,4 @@ def quarantine_comparison(day_lifted, spacing, q1, r, q2):
     return plt.show()
 
 for m in range(15):
-    quarantine_comparison(7*(m+1), 7, 0.5, 0.9, 0.7)
+    quarantine_comparison(7*(m+1), 7, 0.5, 1, 0.5)
