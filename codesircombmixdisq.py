@@ -67,56 +67,42 @@ def mixed_quarantine_comparison(spacing, q1, r, psd):
     S1[0]= psd*S[0]
     S2[0]= S[0]-S1[0]
     I[0] = pi*N
-    
-
-    for n in range(6):
-        qlist = []
-    
-        for i in range(niter-1):
-            if i <= (spacing * (n+1) / dt): 
-                q = q1
-            else:
-                q = r
-            qlist.append(q)
-
-        for j in range(niter-1):
-            dS1dt=-qlist[j]*beta/N*S1[j]*I[j]
-            dS2dt=-beta/N*S2[j]*I[j]
-            dIdt=-dS1dt-dS2dt-gamma*I[j]
-            S1[j+1] = S1[j] + dt*dS1dt 
-            S2[j+1] = S2[j] + dt*dS2dt
-            I[j+1] = I[j] + dt*dIdt  
-        
-        S=S1+S2   
-        # plotting
-        plt.plot(t, I)
-    #no change    
-    S[0] = ps*N
-    I[0] = pi*N
     sum = 0
-
-    for k in range(niter-1):
-       dSdt=-(beta/N)*S[k]*I[k]
-       dIdt=(beta/N)*S[k]*I[k]-gamma*I[k]
-       sum = sum + I[k]*dt
-       S[k+1] = S[k] + dt*dSdt 
-       I[k+1] = I[k] + dt*dIdt
-    plt.plot(t,I)
     
-    #permanent q        
-    S[0] = ps*N
-    S1[0]= psd*S[0]
-    S2[0]= S[0]-S1[0]
-    I[0] = pi*N
 
-    for l in range(niter-1):
-       dS1dt=-q1*beta/N*S1[l]*I[l]
-       dS2dt=-beta/N*S2[l]*I[l]
-       dIdt=-dS1dt-dS2dt-gamma*I[l]
-       S1[l+1] = S1[l] + dt*dS1dt 
-       S2[l+1] = S2[l] + dt*dS2dt
-       I[l+1] = I[l] + dt*dIdt
-    plt.plot(t,I)
+    for n in range(8):
+        if n <= 5:
+            for j in range(niter-1):
+                if j <= (spacing * (n+1) / dt):
+                    q = q1
+                else:
+                    q = r
+                dS1dt=-q*beta/N*S1[j]*I[j]
+                dS2dt=-beta/N*S2[j]*I[j]
+                dIdt=-dS1dt-dS2dt-gamma*I[j]
+                S1[j+1] = S1[j] + dt*dS1dt 
+                S2[j+1] = S2[j] + dt*dS2dt
+                I[j+1] = I[j] + dt*dIdt  
+        
+            S=S1+S2   
+            plt.plot(t, I)
+        elif n == 6:
+            for k in range(niter-1):
+                dSdt=-(beta/N)*S[k]*I[k]
+                dIdt=(beta/N)*S[k]*I[k]-gamma*I[k]
+                sum = sum + I[k]*dt
+                S[k+1] = S[k] + dt*dSdt 
+                I[k+1] = I[k] + dt*dIdt
+            plt.plot(t,I)
+        else:
+            for l in range(niter-1):
+                dS1dt=-q1*beta/N*S1[l]*I[l]
+                dS2dt=-beta/N*S2[l]*I[l]
+                dIdt=-dS1dt-dS2dt-gamma*I[l]
+                S1[l+1] = S1[l] + dt*dS1dt 
+                S2[l+1] = S2[l] + dt*dS2dt
+                I[l+1] = I[l] + dt*dIdt
+            plt.plot(t,I)
     
     plt.legend([str(int(spacing)) + ' days of q = ' + str(float(q1)), 
                 str(int(2 * spacing)) + ' days of q = ' + str(float(q1)), 
