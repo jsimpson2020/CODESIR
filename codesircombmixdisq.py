@@ -30,6 +30,8 @@ def mixed_quarantine_comparison(spacing, q1, r, psd):
     #q1 is the initial quarantine level (between 0 and 1)
     #r is the q value when quarantine is lifted (between 0 and 1)
     #psd is the ratio of people participating in quarantine (between 0 and 1)
+    #this version turns has one group not quarantining, and the other group quarantines
+    #while j <= some number of days determined by the spacing factor
     
     #initializing parameters
     # time step (day)
