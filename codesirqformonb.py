@@ -15,6 +15,7 @@ Created on Sun Jun 21 10:27:02 2020
 # https://www.davidketcheson.info/2020/03/19/SIR_Estimating_parameters.html
 # https://www.davidketcheson.info/2020/03/19/SIR_predictions.html
 # basic assumption beta = 0.25 and gamma = 0.05
+# https://towardsdatascience.com/infectious-disease-modelling-beyond-the-basic-sir-model-216369c584c4
 
 # importing packages
 import numpy as np
@@ -43,7 +44,7 @@ gamma = 0.05
 # total population
 N = 40E6
 # total time (days)
-tottime = 1000
+tottime = 250
 # initial percent removed (immune)
 pr = 0.0
 # initial percent infected
