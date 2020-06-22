@@ -18,3 +18,5 @@ Version 1 of codesircombmixdisq.py is essentially the same thing as version 5 of
 Version 2 of combmixdisq is essentially the same thing as version 4 of discreteq, but now we have the ability to control how much of the population is participating in the restrictions. In this variation, one group does not participate the entire time, and the other initially participates, then stops after a given amount of time, and then resumes participation in restrictions. The "exp" variation has both groups initially quarantine (possibily at different values), then the restrictions are lifted, and then one group refuses to go back to quarantine while the other does go back.
 
 Any of the combmixdisq models can be easily modified to look at differing population dynamics.
+
+Note that codesirqformon.py and codesirqformonb.py are still very much works in progress and still have some issues that need to be worked out.
