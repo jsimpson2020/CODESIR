@@ -25,15 +25,9 @@ import sys
 
 
 #mitigation factor is q
-#spacing is when we turn off quarantine for nomral people
-#q1 and r are varying mitigation factors
-#q1 is the initial quarantine level (between 0 and 1)
-#r is the q value when quarantine is lifted (between 0 and 1)
 #psd is the ratio of extreme social distancers (between 0 and 1)
 #pss is the ratio of super spreaders (between 0 and 1)
 #avoid pss+psd > 1
-#this version turns has one group not quarantining, and the other group quarantines
-#while j <= some number of days determined by the spacing factor
 
 #initializing parameters
 # time step (day)
