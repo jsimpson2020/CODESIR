@@ -49,7 +49,7 @@ gamma = 0.05
 # total population
 N = 40E6
 # total time (days)
-tottime = 4000
+tottime = 500
 # initial percent removed (immune)
 pr = 0.0
 # initial percent infected
@@ -62,8 +62,6 @@ psd = 0.2
 pss = 0.2
 # day restrictions lifted
 day_lifted = 250
-# rate of immunity loss (ratio of recovered people who lose immunity each day)
-r = 0.001
 # death rate
 d = 0.06
 # rate at which people die (1/ time to die after infection)
@@ -97,11 +95,11 @@ for j in range(niter-1):
         q = 0.5 #still some reduction
         k = 1.5 #still extreme spreading
         p = 1 #resumed normal behavior
-    dS1dt=-q*beta/N*S1[j]*I[j] + r*R[j]*psd #*(S1[j]/(S1[j]+S2[j]+S3[j]))
-    dS2dt=-k*beta/N*S2[j]*I[j] + r*R[j]*pss #*(S2[j]/(S1[j]+S2[j]+S3[j]))
-    dS3dt=-p*beta/N*S3[j]*I[j] + r*R[j]*(1-psd-pss) #*(S3[j]/(S1[j]+S2[j]+S3[j]))
+    dS1dt=-q*beta/N*S1[j]*I[j]
+    dS2dt=-k*beta/N*S2[j]*I[j]
+    dS3dt=-p*beta/N*S3[j]*I[j]
     dIdt=q*beta/N*S1[j]*I[j]+k*beta/N*S2[j]*I[j]+p*beta/N*S3[j]*I[j]-(1-d)*gamma*I[j]-d*rho*I[j]
-    dRdt=(1-d)*gamma*I[j] - r*R[j]
+    dRdt=(1-d)*gamma*I[j]
     dDdt=d*rho*I[j]
     S1[j+1] = S1[j] + dt*dS1dt
     S2[j+1] = S2[j] + dt*dS2dt
@@ -124,7 +122,7 @@ plt.plot(t, N) #check that the total population is constant
 plt.legend(['Total susceptible', str(round(((1-pss-psd)*100),3)) + '% "average" people',
            str(round((psd*100),3)) + '% extreme isolators',
            str(round((pss*100),3)) + '% super spreaders', 'Infected', 'Recovered',
-           'Dead'], loc='upper right')
+           'Dead', 'Total'], loc='upper right')
 plt.title('Mixed SIR model for lifting restrictions after ' + str(day_lifted)+ ' days')
 plt.xlabel('days elapsed since 0.01 percent of the population became infected')
 plt.ylabel('population')
