@@ -19,4 +19,4 @@ Version 2 of combmixdisq is essentially the same thing as version 4 of discreteq
 
 Any of the combmixdisq models can be easily modified to look at differing population dynamics.
 
-Note that codesirqformon.py and codesirqformonb.py are still very much works in progress and still have some issues that need to be worked out.
+Note that codesirqformon.py and codesirqformonb.py have been fixed and should work.
