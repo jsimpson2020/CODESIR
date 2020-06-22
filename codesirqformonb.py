@@ -49,7 +49,7 @@ gamma = 0.05
 # total population
 N = 40E6
 # total time (days)
-tottime = 2000
+tottime = 1000
 # initial percent removed (immune)
 pr = 0.0
 # initial percent infected
@@ -116,17 +116,17 @@ for j in range(niter-1):
         q = 0.5 #still some reduction
         k = 1 #still extreme spreading
         p = 0.9 #resumed mostly normal behavior
-    dS1dt=-q*beta/N*S1[j]*I[j] + r*R[j]*(S1[j]/(S1[j]+S2[j]+S3[j]))
-    dS2dt=-k*beta/N*S2[j]*I[j] + r*R[j]*(S2[j]/(S1[j]+S2[j]+S3[j]))
-    dS3dt=-p*beta/N*S3[j]*I[j] + r*R[j]*(S3[j]/(S1[j]+S2[j]+S3[j]))
+    dS1dt=-q*beta/N*S1[j]*I[j] + r*R1[j]
+    dS2dt=-k*beta/N*S2[j]*I[j] + r*R2[j]
+    dS3dt=-p*beta/N*S3[j]*I[j] + r*R3[j]
     dIdt=q*beta/N*S1[j]*I[j]+k*beta/N*S2[j]*I[j]+p*beta/N*S3[j]*I[j]-(1-d)*gamma*I[j]-d*rho*I[j]
     dI1dt=q*beta/N*S1[j]*I[j]-(1-d)*gamma*I1[j]-d*rho*I1[j]
     dI2dt=k*beta/N*S2[j]*I[j]-(1-d)*gamma*I2[j]-d*rho*I2[j]
     dI3dt=p*beta/N*S3[j]*I[j]-(1-d)*gamma*I3[j]-d*rho*I3[j]
     dRdt=(1-d)*gamma*I[j] - r*R[j]
-    dR1dt=(1-d)*gamma*I1[j] - r*R1[j]*(S1[j]/(S1[j]+S2[j]+S3[j]))
-    dR2dt=(1-d)*gamma*I2[j] - r*R2[j]*(S2[j]/(S1[j]+S2[j]+S3[j]))
-    dR3dt=(1-d)*gamma*I3[j] - r*R3[j]*(S3[j]/(S1[j]+S2[j]+S3[j]))
+    dR1dt=(1-d)*gamma*I1[j] - r*R1[j]
+    dR2dt=(1-d)*gamma*I2[j] - r*R2[j]
+    dR3dt=(1-d)*gamma*I3[j] - r*R3[j]
     dDdt=d*rho*I[j]
     dD1dt=d*rho*I1[j]
     dD2dt=d*rho*I2[j]
@@ -153,7 +153,7 @@ T1=S1+I1+R1+D1
 T2=S2+I2+R2+D2
 T3=S3+I3+R3+D3
 
-for n in range(4,8):
+for n in range(8):
     if n == 0:
         plt.plot(t, S)   
         plt.plot(t, S3)
