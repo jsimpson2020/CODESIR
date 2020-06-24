@@ -16,6 +16,7 @@ Created on Sun Jun 21 10:27:02 2020
 # https://www.davidketcheson.info/2020/03/19/SIR_predictions.html
 # basic assumption beta = 0.25 and gamma = 0.05
 # https://towardsdatascience.com/infectious-disease-modelling-beyond-the-basic-sir-model-216369c584c4
+# https://idmod.org/docs/malaria/model-sir.html
 
 # importing packages
 import numpy as np
@@ -252,4 +253,4 @@ for n in range(8):
         plt.show()    
 
 #plt.ylim(0,1E6)
-#plt.xlim(0,250)
+#plt.xlim(0,250)'''
