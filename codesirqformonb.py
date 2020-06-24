@@ -44,7 +44,7 @@ gamma = 0.05
 # total population
 N = 40E6
 # total time (days)
-tottime = 250
+tottime = 2000
 # initial percent removed (immune)
 pr = 0.0
 # initial percent infected
@@ -56,7 +56,7 @@ psd = 0.2
 # percent super spreaders
 pss = 0.2
 # day restrictions lifted
-day_lifted = 250
+day_lifted = 100
 # rate of immunity loss (ratio of recovered people who lose immunity each day)
 r = 0.001
 # death rate
@@ -147,6 +147,7 @@ N=S+I+R+D
 T1=S1+I1+R1+D1
 T2=S2+I2+R2+D2
 T3=S3+I3+R3+D3
+
 
 for n in range(8):
     if n == 0:
