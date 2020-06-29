@@ -150,7 +150,7 @@ T2=S2+I2+R2+D2
 T3=S3+I3+R3+D3
 
 
-for n in range(8):
+for n in range(1,2):
     if n == 0:
         plt.plot(t, S)   
         plt.plot(t, S3)
