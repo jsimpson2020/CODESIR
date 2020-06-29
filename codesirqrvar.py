@@ -45,7 +45,7 @@ gamma = 0.05
 # total population
 N = 40E6
 # total time (days)
-tottime = 8000
+tottime = 730
 # initial percent removed (immune)
 pr = 0.0
 # initial percent infected
@@ -53,7 +53,7 @@ pi = 0.0001
 # initial percent susceptible
 ps = 1-pr-pi
 # death rate
-d = 0.06
+d = 0.05
 # rate at which people die (1/ time to die after infection)
 rho = 1/20 #20 days to die?
 
@@ -72,28 +72,28 @@ D[0] = d*R[0]
 
 rvar = 0.1 #varied rate which recovered individuals return to the susceptible
 # population due to loss of immunity.
-q = 0.201
+q = 0.38
 
 
     
-for n in range(5):
+for n in range(6):
     for j in range(niter-1):
-        dSdt=-q*beta/N*S[j]*I[j] + (rvar**n)*R[j]
+        dSdt=-q*beta/N*S[j]*I[j] + (rvar**(n+0))*R[j]
         dIdt=q*beta/N*S[j]*I[j]-(1-d)*gamma*I[j]-d*rho*I[j]
-        dRdt=(1-d)*gamma*I[j] - (rvar**n)*R[j]
+        dRdt=(1-d)*gamma*I[j] - (rvar**(n+0))*R[j]
         dDdt=d*rho*I[j]
         S[j+1] = S[j] + dt*dSdt
         I[j+1] = I[j] + dt*dIdt
         R[j+1] = R[j] + dt*dRdt
         D[j+1] = D[j] + dt*dDdt
-    plt.plot(t, I)
+    plt.plot(t, I)    
 plt.legend(['r = 1','r = 0.1', 'r = 0.01', 'r = 0.001', 'r = 0.0001',
-            'r = 0.00001'], loc='upper right')
+            'r = 0.00001'], loc='upper left')
 plt.title('SIRS model with varied resusceptibility rates \n (Infected Population)')
 plt.xlabel('days elapsed since 0.01 percent of the population became infected')
 plt.ylabel('population')
-#plt.xlim(250,2000)
-#plt.ylim(0, 2E6)  
+#plt.xlim(600,730)
+#plt.ylim(0, 3E5)  
 plt.show()
         
 
