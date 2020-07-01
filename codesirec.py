@@ -45,7 +45,7 @@ gamma = 0.05
 # total population
 N = 40E6
 # total time (days)
-tottime = 2000
+tottime = 730
 # initial percent removed (immune)
 pr = 0.0
 # initial percent infected
@@ -67,27 +67,50 @@ rho = 1/20 #20 days to die?
 
 niter = int(math.ceil(tottime/dt))
 t = np.arange(0, tottime, dt)   
-S = np.zeros(niter)
-R = np.zeros(niter)
-I = np.zeros(niter)
-D = np.zeros(niter)
+S1 = np.zeros(niter)
+R1 = np.zeros(niter)
+I1 = np.zeros(niter)
+D1 = np.zeros(niter)
+  
+S2 = np.zeros(niter)
+R2 = np.zeros(niter)
+I2 = np.zeros(niter)
+D2 = np.zeros(niter)
     
      
-S[0] = ps*N #total population
-I[0] = pi*N
-R[0] = pr*N
-D[0] = d*R[0]
+S1[0] = ps*N #total population
+I1[0] = pi*N
+R1[0] = pr*N
+D1[0] = d*R1[0]
+
+S2[0] = ps*N #total population
+I2[0] = pi*N
+R2[0] = pr*N
+D2[0] = d*R2[0]
 
     
 
 for j in range(niter-1):
-    dSdt=-beta/N*S[j]*I[j] + r*R[j]
-    S[j+1] = S[j] + dt*dSdt
-    dIdt=beta/N*S[j]*I[j]-(1-d)*gamma*I[j]-d*rho*I[j]
-    dRdt=(1-d)*gamma*I[j] - r*R[j]
-    dDdt=d*rho*I[j]
-    S[j+1] = S[j] + dt*dSdt
-    I[j+1] = I[j] + dt*dIdt
-    R[j+1] = R[j] + dt*dRdt
-    D[j+1] = D[j] + dt*dDdt
-plt.plot(t, I)  
+    dI1dt=beta/N*S1[j]*I1[j]-(1-d)*gamma*I1[j]-d*rho*I1[j]
+    I1[j+1] = I1[j] + dt*dI1dt
+    dS1dt=-beta/N*S1[j]*I1[j+1] + r*R1[j]
+    dR1dt=(1-d)*gamma*I1[j+1] - r*R1[j]
+    dD1dt=d*rho*I1[j+1]
+    S1[j+1] = S1[j] + dt*dS1dt
+    R1[j+1] = R1[j] + dt*dR1dt
+    D1[j+1] = D1[j] + dt*dD1dt  
+
+    dS2dt=-beta/N*S2[j]*I2[j] + r*R2[j]
+    dI2dt=beta/N*S2[j]*I2[j]-(1-d)*gamma*I2[j]-d*rho*I2[j]
+    dR2dt=(1-d)*gamma*I2[j] - r*R2[j]
+    dD2dt=d*rho*I2[j]
+    S2[j+1] = S2[j] + dt*dS2dt
+    I2[j+1] = I2[j] + dt*dI2dt
+    R2[j+1] = R2[j] + dt*dR2dt
+    D2[j+1] = D2[j] + dt*dD2dt
+    
+I=(I1-I2)/I1*100    
+plt.plot(t, I)
+plt.title('SIRS model test difference between Euler-Cromer and Euler methods \n (Infected Population)')
+plt.xlabel('days elapsed since 0.01 percent of the population became infected')
+plt.ylabel('% difference in population output')
