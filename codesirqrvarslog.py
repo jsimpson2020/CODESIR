@@ -45,7 +45,7 @@ gamma = 0.05
 # total population
 N = 40E6
 # total time (days)
-tottime = 80000
+tottime = 16000
 # initial percent removed (immune)
 pr = 0.0
 # initial percent infected
@@ -70,17 +70,17 @@ I[0] = pi*N
 R[0] = pr*N
 D[0] = d*R[0]
 
-rvar = 0.1 #varied rate which recovered individuals return to the susceptible
+rvar = 0.01 #varied rate which recovered individuals return to the susceptible
 # population due to loss of immunity.
 q = 1
 L=[]
 
     
-for n in range(4):
+for n in range(5):
     for j in range(niter-1):
-        dSdt=-q*beta/N*S[j]*I[j] + (rvar**n)*R[j]
+        dSdt=-q*beta/N*S[j]*I[j] + (rvar+0.01*(n+0))*R[j]
         dIdt=q*beta/N*S[j]*I[j]-(1-d)*gamma*I[j]-d*rho*I[j]
-        dRdt=(1-d)*gamma*I[j] - (rvar**n)*R[j]
+        dRdt=(1-d)*gamma*I[j] - (rvar+0.01*(n+0))*R[j]
         dDdt=d*rho*I[j]
         S[j+1] = S[j] + dt*dSdt
         I[j+1] = I[j] + dt*dIdt
@@ -92,8 +92,9 @@ for n in range(4):
     L.append(m[0])
     
     plt.plot(t, lnI)    
-plt.legend(['r = 1, m = ' + str(L[0]), 'r = 0.1, m = ' + str(L[1]),
-            'r = 0.01, m = ' + str(L[2]), 'r = 0.001, m = ' + str(L[3])], loc='lower left')
+plt.legend(['r = 0.01, m = ' + str(L[0]), 'r = 0.02, m = ' + str(L[1]),
+            'r = 0.03, m = ' + str(L[2]), 'r = 0.04, m = ' + str(L[3]),
+            'r = 0.05, m = ' + str(L[4])], loc='lower left')
 plt.title('SIRS model with varied resusceptibility rates \n (Infected Population semi-log plot)')
 plt.xlabel('days elapsed since 0.01 percent of the population became infected')
 plt.ylabel('natural log of population')

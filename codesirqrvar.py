@@ -72,7 +72,7 @@ D[0] = d*R[0]
 
 rvar = 0.1 #varied rate which recovered individuals return to the susceptible
 # population due to loss of immunity.
-q = 0.38
+q = 1
 
 
     
