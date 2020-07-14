@@ -86,6 +86,7 @@ plt.xlabel('days since beginning of outbreak')
 plt.ylabel('population')
 plt.show()
 
+
  #specific plotting for Brauer example
 plt.plot(S, I, 'k')
 plt.title('Brauer 2008 SIR model for Eyam Plague')
