@@ -40,6 +40,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sp
 import math
+import sys
 
 #initializing parameters
 # time step (day)
@@ -56,8 +57,20 @@ alpha = 0.091
 kappa = 0.2
 
 
+# total population
+N = 1000
 # total time (days)
-tottime = 135
+tottime = 140
+# initial percent removed (immune)
+pr = 0.0
+# initial percent exposed
+pe = 0.0
+# initial percemt infected
+pi = 0.01
+# initial percent susceptible
+ps = 1-pr-pe-pi
+
+
 
 #Initializing arrays
 niter = int(math.ceil(tottime/dt))
@@ -68,11 +81,10 @@ I = np.zeros(niter)
 R = np.zeros(niter)
 
 #Initial population values 
-S[0] = 247
-E[0] = 7
-I[0] = 7
-R[0] = 0
-N = S[0] + I[0] + E[0] + R[0]
+S[0] = ps*N
+E[0] = pe*N
+I[0] = pi*N
+R[0] = pr*N
 
 R0 = beta*S[0]/alpha
 
@@ -86,8 +98,6 @@ for j in range(niter-1):
     E[j+1] = E[j] + dt*dEdt
     I[j+1] = I[j] + dt*dIdt
     R[j+1] = R[j] + dt*dRdt
-   
-       
 N=S+E+I+R
 
 
@@ -97,9 +107,9 @@ plt.plot(t, S, 'k', label = 'susceptible')
 plt.plot(t, E, 'g', label = 'exposed')
 plt.plot(t, I, 'm', label = 'infected')
 plt.plot(t, R, 'b', label = 'recovered')
-plt.plot(t, R+S+I, 'y', label = 'total')
+plt.plot(t, N, 'y', label = 'total')
 plt.gca().legend(('susceptible', 'exposed', 'infected','recovered','total'))
-plt.title('Brauer 2008 SIR model for Eyam Plague with exposure')
+plt.title('Brauer 2008 SEIR model for Eyam Plague with exposure')
 plt.xlabel('days since beginning of outbreak')
 plt.ylabel('population')
 plt.show()
