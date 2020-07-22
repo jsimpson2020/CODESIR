@@ -53,7 +53,9 @@ def BrauerSIR(initial_population=100000, length_of_infection=20,
         S[j+1] = S[j] + dt*dSdt
         I[j+1] = I[j] + dt*dIdt
         R[j+1] = R[j] + dt*dRdt
-        if I[j] < 1.0:
+        if S[j] < 0.01:
+            S[j+1]=0
+        if I[j] < 0.01:
             I[j+1]=0
     N = S + I + R
     
@@ -129,7 +131,9 @@ def BrauerSEIR(initial_population=100000, length_of_infection=20,
         E[j+1] = E[j] + dt*dEdt
         I[j+1] = I[j] + dt*dIdt
         R[j+1] = R[j] + dt*dRdt
-        if I[j] < 1.0:
+        if S[j] < 0.01:
+            S[j+1]=0
+        if I[j] < 0.01:
             I[j+1]=0
     N=S+E+I+R
     
@@ -204,7 +208,9 @@ def BrauerSIS(initial_population=100000, length_of_infection=20,
         S[j+1] = S[j] + dt*dSdt
         I[j+1] = I[j] + dt*dIdt
         R[j+1] = R[j] + dt*dRdt
-        if I[j] < 1.0:
+        if S[j] < 0.01:
+            S[j+1]=0
+        if I[j] < 0.01:
             I[j+1]=0
     N = S + I + R
     
@@ -278,7 +284,9 @@ def BrauerSIRbirthdeath(initial_population=100000, length_of_infection=20,
         S[j+1] = S[j] + dt*dSdt 
         I[j+1] = I[j] + dt*dIdt
         N[j+1] = N[j] + dt*dNdt
-        if I[j] < 1.0:
+        if S[j] < 0.01:
+            S[j+1]=0
+        if I[j] < 0.01:
             I[j+1]=0
     R = N-S-I
     
@@ -366,7 +374,9 @@ def BrauerSIRSbirthdeath(initial_population=100000, length_of_infection=20,
         I[j+1] = I[j] + dt*dIdt
         R[j+1] = R[j] + dt*dRdt
         N[j+1] = N[j] + dt*dNdt
-        if I[j] < 1.0:
+        if S[j] < 0.01:
+            S[j+1]=0
+        if I[j] < 0.01:
             I[j+1]=0
     
     R0 = lmbda/(mu + alpha)
@@ -405,3 +415,17 @@ def BrauerSIRSbirthdeath(initial_population=100000, length_of_infection=20,
     df = pd.DataFrame({'days':t, 'susceptible':S, 'infected':I, 'recovered':R, 'total':N})
     
     return df
+
+def PlotSIR(t=0, S=0, I=0, R=0, N=0, legend=('susceptible', 'infected', 'recovered', 'total'),
+            legend_location= 'right', title=' ', xlabel=' ', ylabel=' '):
+    plt.plot(t, S)
+    plt.plot(t, I)
+    plt.plot(t, R)
+    plt.plot(t, N)
+    plt.gca().legend(legend, loc= legend_location)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.show()
+    
+    return plt.show()
