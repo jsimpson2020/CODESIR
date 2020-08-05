@@ -538,5 +538,3 @@ def modifiedBrauerSIRSbd(initial_population=100000, length_of_infection=20,
     df = pd.DataFrame({'days':t, 'susceptible':S, 'infected':I, 'recovered':R, 'total':N})
     
     return df
-
-modifiedBrauerSIRSbd(plot=True, parameters=True)
